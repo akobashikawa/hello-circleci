@@ -11,3 +11,22 @@ jobs:
       - run:
           name: Print the Current Time
           command: date
+  deploy:
+    machine:
+      enabled: true
+    steps:
+      - run:
+          name: Deploy over SSH
+          command: |
+            ssh $SSH_USER@$SSH_HOST "ci/deploy-hello-circleci.sh"
+workflows:
+  version: 2
+    build-and-deploy:
+      jobs:
+        -build
+        -deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
