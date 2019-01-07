@@ -18,13 +18,14 @@ jobs:
       - run:
           name: Deploy over SSH
           command: |
-            ssh $SSH_USER@$SSH_HOST "ci/deploy-hello-circleci.sh"
+            ssh $SSH_USER@$SSH_HOST "/home/rulo/ci/deploy-hello-circleci.sh"
+
 workflows:
   version: 2
     build-and-deploy:
       jobs:
-        -build
-        -deploy:
+        - build
+        - deploy:
           requires:
             - build
           filters:
