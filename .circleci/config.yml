@@ -21,13 +21,12 @@ jobs:
             ssh $SSH_USER@$SSH_HOST "/home/rulo/ci/deploy-hello-circleci.sh"
 
 workflows:
-  version: 2
-    build-and-deploy:
-      jobs:
-        - build
-        - deploy:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+        requires:
+          - build
+        filters:
+          branches:
+            only: master
